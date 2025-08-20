@@ -122,9 +122,21 @@ Do **not** use real credentials or sensitive financial data.
 
 ## 🌍 Vision
 
-In the long run, the goal is to evolve **UPI Transaction Tracker** into more than just a web app.
-A **browser extension** could automatically **sync UPI transactions** or **export them to GitHub repos** for financial logs, automation, and backups.
+The goal is for UPI Transaction Tracker to evolve into more than just a web application. In the future, it could take the form of a browser extension (or system-level automation tool) that:
 
+🔄 Automatically syncs UPI transactions, removing the need for manual entry.
+
+📤 Exports transaction logs to GitHub repositories, ideal for:
+
+Financial journaling
+
+Expense automation
+
+Version-controlled backups
+
+⚙️ Works like popular LeetCode-to-GitHub extensions, which push updates automatically in the background.
+
+💡 Think of it as the "LeetCode GitHub sync" equivalent — but for your digital financial life.
 ---
 
 ## 📄 License
@@ -148,4 +160,4 @@ This project is licensed under the **MIT License** – see the [LICENSE](LICENSE
 
 
 
-Do you want me to also add **badges** (e.g., License, Made with JS, Tailwind, etc.) at the top for extra polish?
+
