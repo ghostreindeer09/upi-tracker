@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UPI Transaction Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="color-scheme" content="light dark">
+</head>
+<body class="min-h-screen font-sans bg-gradient-to-br from-indigo-50 via-sky-50 to-white text-gray-900 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950">
+  <header class="bg-white/80 dark:bg-white/10 backdrop-blur border-b border-gray-200/60 dark:border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-600 to-violet-600 text-white grid place-items-center font-bold">U</div>
+        <span class="font-semibold">UPI Transaction Tracker</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="navUserEmail" class="hidden sm:inline text-sm text-gray-500"></span>
+        <button id="btnLogout" class="inline-flex items-center gap-1 rounded-md bg-gray-900 text-white text-sm font-medium px-3 py-1.5 hover:bg-black">
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <aside class="hidden md:block md:col-span-3">
+        <nav class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-2">
+          <button class="nav-btn aria-selected:bg-gray-100/80 dark:aria-selected:bg-white/10 w-full text-left rounded-lg px-3 py-2 transition" data-panel="#panel-summary" aria-selected="true">🏠 Dashboard Summary</button>
+          <button class="nav-btn w-full text-left rounded-lg px-3 py-2 transition" data-panel="#panel-add">➕ Add Transaction</button>
+          <button class="nav-btn w-full text-left rounded-lg px-3 py-2 transition" data-panel="#panel-list">📄 View Transactions</button>
+        </nav>
+      </aside>
+
+      <div class="md:hidden sticky top-0 z-20">
+        <div class="grid grid-cols-3 bg-white/90 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-1">
+          <button class="nav-btn aria-selected:bg-gray-100/80 dark:aria-selected:bg-white/10 rounded-lg px-3 py-2 text-sm" data-panel="#panel-summary" aria-selected="true">Summary</button>
+          <button class="nav-btn rounded-lg px-3 py-2 text-sm" data-panel="#panel-add">Add</button>
+          <button class="nav-btn rounded-lg px-3 py-2 text-sm" data-panel="#panel-list">Transactions</button>
+        </div>
+      </div>
+
+      <section class="md:col-span-9 space-y-6">
+        <div id="panel-summary" class="panel">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">Total Sent</p>
+                <span>📤</span>
+              </div>
+              <p id="sumSent" class="mt-1 text-2xl font-semibold text-red-600">₹0</p>
+            </div>
+            <div class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">Total Received</p>
+                <span>📥</span>
+              </div>
+              <p id="sumReceived" class="mt-1 text-2xl font-semibold text-green-600">₹0</p>
+            </div>
+            <div class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">Cashback</p>
+                <span>💸</span>
+              </div>
+              <p id="sumCashback" class="mt-1 text-2xl font-semibold text-emerald-600">₹0</p>
+            </div>
+            <div class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500">Net</p>
+                <span>🧮</span>
+              </div>
+              <p id="sumNet" class="mt-1 text-2xl font-semibold">₹0</p>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-medium">Recent Transactions</h3>
+              <a href="#panel-list" class="text-sm text-indigo-600" onclick="document.querySelector('[data-panel=\"#panel-list\"]').click()">View all →</a>
+            </div>
+            <div id="recentList" class="mt-3 divide-y"></div>
+          </div>
+        </div>
+
+        <div id="panel-add" class="panel hidden">
+          <div class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-6">
+            <h3 class="font-medium">Add Transaction</h3>
+            <form id="addTransactionForm" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4" novalidate>
+              <div>
+                <label for="amount" class="block text-sm font-medium mb-1">Amount</label>
+                <input id="amount" type="number" min="1" step="0.01" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="0.00" />
+                <p id="amountError" class="mt-1 text-xs text-red-600 hidden">Enter a valid amount.</p>
+              </div>
+              <div>
+                <label for="type" class="block text-sm font-medium mb-1">Transaction Type</label>
+                <select id="type" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <option value="">Select</option>
+                  <option value="Sent">Sent</option>
+                  <option value="Received">Received</option>
+                  <option value="Cashback">Cashback</option>
+                </select>
+                <p id="typeError" class="mt-1 text-xs text-red-600 hidden">Select a type.</p>
+              </div>
+              <div>
+                <label for="appUsed" class="block text-sm font-medium mb-1">UPI App Used</label>
+                <select id="appUsed" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <option value="">Select</option>
+                  <option value="GPay">GPay</option>
+                  <option value="PhonePe">PhonePe</option>
+                  <option value="Paytm">Paytm</option>
+                </select>
+                <p id="appError" class="mt-1 text-xs text-red-600 hidden">Select an app.</p>
+              </div>
+              <div>
+                <label for="date" class="block text-sm font-medium mb-1">Date</label>
+                <input id="date" type="date" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <p id="dateError" class="mt-1 text-xs text-red-600 hidden">Select a date.</p>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="note" class="block text-sm font-medium mb-1">Optional Note</label>
+                <textarea id="note" rows="3" class="block w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Add a note (optional)"></textarea>
+              </div>
+              <div class="sm:col-span-2">
+                <button type="submit" class="inline-flex items-center rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium px-4 h-11 hover:from-indigo-700 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Save Transaction</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div id="panel-list" class="panel hidden">
+          <div class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl">
+            <div class="p-4 border-b border-gray-200/60 dark:border-white/10 space-y-3">
+              <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+                <h3 class="font-medium">Transactions</h3>
+                <div class="text-sm text-gray-500" id="txCount">0 items</div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                <div class="md:col-span-5">
+                  <input id="searchInput" type="text" placeholder="Search note, type, app..." class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 px-3" />
+                </div>
+                <div class="md:col-span-3">
+                  <select id="typeFilter" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">All Types</option>
+                    <option value="Sent">Sent</option>
+                    <option value="Received">Received</option>
+                    <option value="Cashback">Cashback</option>
+                  </select>
+                </div>
+                <div class="md:col-span-2">
+                  <select id="appFilter" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">All Apps</option>
+                    <option value="GPay">GPay</option>
+                    <option value="PhonePe">PhonePe</option>
+                    <option value="Paytm">Paytm</option>
+                  </select>
+                </div>
+                <div class="md:col-span-2">
+                  <select id="sortBy" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="date_desc">Newest</option>
+                    <option value="date_asc">Oldest</option>
+                    <option value="amount_desc">Amount ↓</option>
+                    <option value="amount_asc">Amount ↑</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div id="emptyState" class="hidden p-10 text-center text-gray-500">
+              <div class="text-6xl mb-3">🧾</div>
+              <p class="font-medium">No transactions yet</p>
+              <p class="text-sm mt-1">Add your first transaction to get started.</p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200 text-sm">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-4 py-2 text-left font-medium text-gray-600">Amount</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-600">Type</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-600">App Used</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-600">Date</th>
+                    <th class="px-4 py-2 text-left font-medium text-gray-600">Note</th>
+                    <th class="px-4 py-2 text-right font-medium text-gray-600">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="txTableBody" class="divide-y divide-gray-100"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <button id="fabAdd" class="md:hidden fixed bottom-6 right-6 z-40 rounded-full h-12 w-12 bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg grid place-items-center">+</button>
+
+  <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
+  <script src="./js/app.js"></script>
+</body>
+</html>
