@@ -1,182 +1,149 @@
-# UPI Transaction Tracker
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPI Transaction Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
 
-A modern, responsive web application for tracking UPI transactions across different payment apps like GPay, PhonePe, and Paytm. Built with vanilla JavaScript and styled with Tailwind CSS.
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-10 shadow-lg">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h1 class="text-4xl font-extrabold">💳 UPI Transaction Tracker</h1>
+      <p class="text-lg mt-2 opacity-90">A modern, responsive web app for tracking UPI transactions</p>
+    </div>
+  </header>
 
+  <main class="max-w-5xl mx-auto px-6 py-10 space-y-12">
 
+    <!-- Features -->
+    <section>
+      <h2 class="text-2xl font-bold text-indigo-700 mb-4">✨ Features</h2>
 
-## ✨ Features
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900">🔐 Authentication System</h3>
+          <ul class="list-disc pl-6 text-gray-700">
+            <li>Secure Login/Register with validation</li>
+            <li>Automatic session handling</li>
+            <li>Password show/hide toggle</li>
+          </ul>
+        </div>
 
-### 🔐 Authentication System
-- **Secure Login/Register**: User authentication with form validation
-- **Session Management**: Automatic session handling and protection
-- **Password Toggle**: Show/hide password functionality
+        <div>
+          <h3 class="text-xl font-semibold">📊 Dashboard Overview</h3>
+          <ul class="list-disc pl-6">
+            <li>Track total sent, received, cashback, and net balance</li>
+            <li>Quick view of latest 5 transactions</li>
+            <li>Real-time auto updates</li>
+          </ul>
+        </div>
 
-### 📊 Dashboard Overview
-- **Financial Summary**: Track total sent, received, cashback, and net balance
-- **Recent Transactions**: Quick view of your latest 5 transactions
-- **Real-time Updates**: All calculations update automatically
+        <div>
+          <h3 class="text-xl font-semibold">💰 Transaction Management</h3>
+          <ul class="list-disc pl-6">
+            <li>Add transactions with details</li>
+            <li>Support for GPay, PhonePe, Paytm</li>
+            <li>Transaction types: Sent, Received, Cashback</li>
+            <li>Optional transaction notes</li>
+          </ul>
+        </div>
 
-### 💰 Transaction Management
-- **Add Transactions**: Record UPI payments with detailed information
-- **Multiple UPI Apps**: Support for GPay, PhonePe, and Paytm
-- **Transaction Types**: Categorize as Sent, Received, or Cashback
-- **Notes Support**: Add optional notes to transactions
+        <div>
+          <h3 class="text-xl font-semibold">🔍 Advanced Filtering & Search</h3>
+          <ul class="list-disc pl-6">
+            <li>Global search across notes, apps, and types</li>
+            <li>Filter by Sent/Received/Cashback</li>
+            <li>Filter by app (GPay/PhonePe/Paytm)</li>
+            <li>Smart sorting: date/amount</li>
+          </ul>
+        </div>
 
-### 🔍 Advanced Filtering & Search
-- **Global Search**: Search across notes, transaction types, and apps
-- **Filter by Type**: Filter transactions by Sent/Received/Cashback
-- **Filter by App**: View transactions from specific UPI apps
-- **Smart Sorting**: Sort by date (newest/oldest) or amount (high/low)
+        <div>
+          <h3 class="text-xl font-semibold">📱 Responsive Design</h3>
+          <ul class="list-disc pl-6">
+            <li>Mobile-first UI</li>
+            <li>Dark mode ready</li>
+            <li>Glassmorphism-inspired design</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-### 📱 Responsive Design
-- **Mobile-First**: Optimized for mobile devices
-- **Desktop Support**: Full-featured desktop experience
-- **Dark Mode Ready**: Built-in dark mode support
-- **Modern UI**: Clean, glassmorphism-inspired design
+    <!-- Quick Start -->
+    <section>
+      <h2 class="text-2xl font-bold text-indigo-700 mb-4">🚀 Quick Start</h2>
+      <ol class="list-decimal pl-6 space-y-2">
+        <li>Clone the repository
+          <pre class="bg-gray-900 text-green-400 p-3 rounded mt-1 text-sm overflow-x-auto"><code>git clone https://github.com/yourusername/upi-transaction-tracker.git
+cd upi-transaction-tracker</code></pre>
+        </li>
+        <li>Open in browser
+          <pre class="bg-gray-900 text-green-400 p-3 rounded mt-1 text-sm overflow-x-auto"><code>open index.html
+# or
+python -m http.server 8000</code></pre>
+        </li>
+        <li>Start tracking: login, add transactions, explore dashboard</li>
+      </ol>
+    </section>
 
-## 🚀 Quick Start
-
-### Prerequisites
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- No server setup required - runs entirely in the browser
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/upi-transaction-tracker.git
-   cd upi-transaction-tracker
-   ```
-
-2. **Open in browser**
-   ```bash
-   # Simply open index.html in your browser
-   open index.html
-   # or
-   python -m http.server 8000  # For local server
-   ```
-
-3. **Start tracking**
-   - Create an account or login
-   - Add your first transaction
-   - Explore the dashboard and analytics
-
-## 📁 Project Structure
-
-```
+    <!-- Project Structure -->
+    <section>
+      <h2 class="text-2xl font-bold text-indigo-700 mb-4">📁 Project Structure</h2>
+      <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
 upi-transaction-tracker/
 ├── index.html          # Authentication page
-├── app.html           # Main application dashboard
+├── app.html            # Main application dashboard
 ├── js/
-│   ├── auth.js        # Authentication logic
-│   └── app.js         # Main application logic
-├── README.md          # Project documentation
-└── assets/            # Images and assets (if any)
-```
+│   ├── auth.js         # Authentication logic
+│   └── app.js          # Main app logic
+├── assets/             # Images/assets
+└── README.md
+      </pre>
+    </section>
 
-## 🛠️ Technology Stack
+    <!-- Tech Stack -->
+    <section>
+      <h2 class="text-2xl font-bold text-indigo-700 mb-4">🛠️ Technology Stack</h2>
+      <ul class="grid grid-cols-2 gap-3 list-disc pl-6">
+        <li>Frontend: Vanilla JavaScript (ES6+)</li>
+        <li>Styling: Tailwind CSS 3+</li>
+        <li>Fonts: Inter family</li>
+        <li>Storage: LocalStorage</li>
+        <li>Icons: Unicode emojis</li>
+      </ul>
+    </section>
 
-- **Frontend**: Vanilla JavaScript (ES6+)
-- **Styling**: Tailwind CSS 3.0+
-- **Fonts**: Inter font family
-- **Storage**: LocalStorage (demo purposes)
-- **Icons**: Unicode emojis and symbols
+    <!-- Future Enhancements -->
+    <section>
+      <h2 class="text-2xl font-bold text-indigo-700 mb-4">🔮 Future Enhancements</h2>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>Cloud Storage (Firebase/Supabase)</li>
+        <li>CSV/PDF export functionality</li>
+        <li>Charts for visual analytics</li>
+        <li>Custom categories</li>
+        <li>Recurring transactions</li>
+        <li>Multi-currency support</li>
+        <li>PWA support</li>
+        <li>Notifications/reminders</li>
+      </ul>
+    </section>
 
-## 💾 Data Storage
+    <!-- License -->
+    <section class="bg-gray-100 p-6 rounded-lg">
+      <h2 class="text-2xl font-bold text-indigo-700 mb-3">📄 License</h2>
+      <p class="text-gray-700">This project is licensed under the <strong>MIT License</strong>.</p>
+    </section>
 
-> **⚠️ Important**: This is an MVP demo using localStorage. Do not use real credentials or sensitive financial data.
+  </main>
 
-- User accounts stored in `utr_users` localStorage key
-- Transactions stored per user in `utr_tx_{email}` format
-- Session data stored in `utr_session` key
-- All data is stored locally in the browser
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-6 text-center">
+    <p>Made with ❤️ for better financial tracking</p>
+    <p class="text-sm mt-1">Demo MVP – For production use, implement backend & secure storage</p>
+  </footer>
 
-## 🎯 Usage Guide
-
-### Creating an Account
-1. Visit the application homepage
-2. Click on "Register" tab
-3. Enter your email and password (minimum 6 characters)
-4. Click "Create account"
-
-### Adding Transactions
-1. Navigate to "Add Transaction" panel
-2. Fill in the transaction details:
-   - **Amount**: Enter the transaction amount
-   - **Type**: Select Sent, Received, or Cashback
-   - **UPI App**: Choose GPay, PhonePe, or Paytm
-   - **Date**: Select transaction date
-   - **Note**: Add optional description
-3. Click "Save Transaction"
-
-### Viewing Analytics
-- **Dashboard**: View summary cards with totals and recent transactions
-- **Transaction List**: Browse all transactions with search and filters
-- **Filtering**: Use search, type, and app filters to find specific transactions
-
-## 🔧 Customization
-
-### Adding New UPI Apps
-To add support for additional UPI apps, modify the select options in both `index.html` and `app.html`:
-
-```html
-<option value="NewApp">New App Name</option>
-```
-
-### Modifying Transaction Types
-Add new transaction types by updating the type select options and corresponding styling in `badgeClass()` function.
-
-### Styling Changes
-The project uses Tailwind CSS. Modify classes directly in HTML or extend the Tailwind configuration in the `<script>` tag.
-
-## 🐛 Known Limitations
-
-- **Storage**: Uses localStorage (data stays in browser only)
-- **Security**: Demo-level authentication (not production-ready)
-- **Sync**: No cross-device synchronization
-- **Export**: No data export functionality
-- **Backup**: No automatic backup system
-
-## 🔮 Future Enhancements
-
-- [ ] **Cloud Storage**: Firebase/Supabase integration
-- [ ] **Data Export**: CSV/PDF export functionality
-- [ ] **Charts**: Visual analytics with charts
-- [ ] **Categories**: Custom transaction categories
-- [ ] **Recurring**: Support for recurring transactions
-- [ ] **Multi-currency**: Support for different currencies
-- [ ] **PWA**: Progressive Web App capabilities
-- [ ] **Notifications**: Transaction reminders
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the branch (`git push origin feature/AmazingFeature`)
-5. **Open** a Pull Request
-
-### Development Guidelines
-- Follow existing code style and structure
-- Test on multiple browsers and devices
-- Update documentation for new features
-- Ensure responsive design compatibility
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Tailwind CSS** for the utility-first styling approach
-- **Inter Font** for beautiful typography
-- **Modern Web APIs** for localStorage and form validation
-
-
----
-
-**Made with ❤️ for better financial tracking**
-
-> This is a demo MVP. For production use, implement proper backend authentication and secure data storage.
+</body>
+</html>
