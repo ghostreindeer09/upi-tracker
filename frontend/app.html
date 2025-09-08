@@ -9,7 +9,19 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] }
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e', 950: '#082f49'
+            },
+            accent: {
+              50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd',
+              400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9',
+              800: '#5b21b6', 900: '#4c1d95', 950: '#2e1065'
+            }
+          }
         }
       }
     }
@@ -17,16 +29,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <meta name="color-scheme" content="light dark">
 </head>
-<body class="min-h-screen font-sans bg-gradient-to-br from-indigo-50 via-sky-50 to-white text-gray-900 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950">
+<body class="min-h-screen font-sans bg-gradient-to-br from-brand-50 via-brand-100 to-white text-gray-900 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950">
   <header class="bg-white/80 dark:bg-white/10 backdrop-blur border-b border-gray-200/60 dark:border-white/10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-600 to-violet-600 text-white grid place-items-center font-bold">U</div>
+        <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-brand-600 to-accent-600 text-white grid place-items-center font-bold">U</div>
         <span class="font-semibold">UPI Transaction Tracker</span>
       </div>
       <div class="flex items-center gap-3">
         <span id="navUserEmail" class="hidden sm:inline text-sm text-gray-500"></span>
-        <button id="btnLogout" class="inline-flex items-center gap-1 rounded-md bg-gray-900 text-white text-sm font-medium px-3 py-1.5 hover:bg-black">
+        <button id="btnLogout" class="inline-flex items-center gap-1 rounded-md bg-brand-700 text-white text-sm font-medium px-3 py-1.5 hover:bg-brand-800">
           <span>Logout</span>
         </button>
       </div>
@@ -37,17 +49,17 @@
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       <aside class="hidden md:block md:col-span-3">
         <nav class="bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-2">
-          <button class="nav-btn aria-selected:bg-gray-100/80 dark:aria-selected:bg-white/10 w-full text-left rounded-lg px-3 py-2 transition" data-panel="#panel-summary" aria-selected="true">🏠 Dashboard Summary</button>
-          <button class="nav-btn w-full text-left rounded-lg px-3 py-2 transition" data-panel="#panel-add">➕ Add Transaction</button>
-          <button class="nav-btn w-full text-left rounded-lg px-3 py-2 transition" data-panel="#panel-list">📄 View Transactions</button>
+          <button class="nav-btn aria-selected:bg-brand-100/80 dark:aria-selected:bg-white/10 w-full text-left rounded-lg px-3 py-2 transition" data-panel="#panel-summary" aria-selected="true">🏠 Dashboard Summary</button>
+          <button class="nav-btn w-full text-left rounded-lg px-3 py-2 transition hover:bg-brand-50 dark:hover:bg-white/5" data-panel="#panel-add">➕ Add Transaction</button>
+          <button class="nav-btn w-full text-left rounded-lg px-3 py-2 transition hover:bg-brand-50 dark:hover:bg-white/5" data-panel="#panel-list">📄 View Transactions</button>
         </nav>
       </aside>
 
       <div class="md:hidden sticky top-0 z-20">
         <div class="grid grid-cols-3 bg-white/90 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-1">
-          <button class="nav-btn aria-selected:bg-gray-100/80 dark:aria-selected:bg-white/10 rounded-lg px-3 py-2 text-sm" data-panel="#panel-summary" aria-selected="true">Summary</button>
-          <button class="nav-btn rounded-lg px-3 py-2 text-sm" data-panel="#panel-add">Add</button>
-          <button class="nav-btn rounded-lg px-3 py-2 text-sm" data-panel="#panel-list">Transactions</button>
+          <button class="nav-btn aria-selected:bg-brand-100/80 dark:aria-selected:bg-white/10 rounded-lg px-3 py-2 text-sm" data-panel="#panel-summary" aria-selected="true">Summary</button>
+          <button class="nav-btn rounded-lg px-3 py-2 text-sm hover:bg-brand-50 dark:hover:bg-white/5" data-panel="#panel-add">Add</button>
+          <button class="nav-btn rounded-lg px-3 py-2 text-sm hover:bg-brand-50 dark:hover:bg-white/5" data-panel="#panel-list">Transactions</button>
         </div>
       </div>
 
@@ -80,14 +92,14 @@
                 <p class="text-sm text-gray-500">Net</p>
                 <span>🧮</span>
               </div>
-              <p id="sumNet" class="mt-1 text-2xl font-semibold">₹0</p>
+              <p id="sumNet" class="mt-1 text-2xl font-semibold text-brand-600">₹0</p>
             </div>
           </div>
 
           <div class="mt-6 bg-white/80 dark:bg-white/10 backdrop-blur border border-gray-200/60 dark:border-white/10 rounded-xl p-4">
             <div class="flex items-center justify-between">
               <h3 class="font-medium">Recent Transactions</h3>
-              <a href="#panel-list" class="text-sm text-indigo-600" onclick="document.querySelector('[data-panel=\"#panel-list\"]').click()">View all →</a>
+              <a href="#panel-list" class="text-sm text-brand-600" onclick="document.querySelector('[data-panel=\"#panel-list\"]').click()">View all →</a>
             </div>
             <div id="recentList" class="mt-3 divide-y"></div>
           </div>
@@ -99,12 +111,12 @@
             <form id="addTransactionForm" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4" novalidate>
               <div>
                 <label for="amount" class="block text-sm font-medium mb-1">Amount</label>
-                <input id="amount" type="number" min="1" step="0.01" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="0.00" />
+                <input id="amount" type="number" min="1" step="0.01" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white" placeholder="0.00" />
                 <p id="amountError" class="mt-1 text-xs text-red-600 hidden">Enter a valid amount.</p>
               </div>
               <div>
                 <label for="type" class="block text-sm font-medium mb-1">Transaction Type</label>
-                <select id="type" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <select id="type" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white">
                   <option value="">Select</option>
                   <option value="Sent">Sent</option>
                   <option value="Received">Received</option>
@@ -114,7 +126,7 @@
               </div>
               <div>
                 <label for="appUsed" class="block text-sm font-medium mb-1">UPI App Used</label>
-                <select id="appUsed" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <select id="appUsed" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white">
                   <option value="">Select</option>
                   <option value="GPay">GPay</option>
                   <option value="PhonePe">PhonePe</option>
@@ -124,15 +136,15 @@
               </div>
               <div>
                 <label for="date" class="block text-sm font-medium mb-1">Date</label>
-                <input id="date" type="date" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <input id="date" type="date" required class="block w-full rounded-xl border-gray-300 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white" />
                 <p id="dateError" class="mt-1 text-xs text-red-600 hidden">Select a date.</p>
               </div>
               <div class="sm:col-span-2">
                 <label for="note" class="block text-sm font-medium mb-1">Optional Note</label>
-                <textarea id="note" rows="3" class="block w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Add a note (optional)"></textarea>
+                <textarea id="note" rows="3" class="block w-full rounded-xl border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white" placeholder="Add a note (optional)"></textarea>
               </div>
               <div class="sm:col-span-2">
-                <button type="submit" class="inline-flex items-center rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium px-4 h-11 hover:from-indigo-700 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Save Transaction</button>
+                <button type="submit" class="inline-flex items-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 text-white font-medium px-4 h-11 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500">Save Transaction</button>
               </div>
             </form>
           </div>
@@ -147,10 +159,10 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
                 <div class="md:col-span-5">
-                  <input id="searchInput" type="text" placeholder="Search note, type, app..." class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 px-3" />
+                  <input id="searchInput" type="text" placeholder="Search note, type, app..." class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 px-3 text-gray-900 bg-white" />
                 </div>
                 <div class="md:col-span-3">
-                  <select id="typeFilter" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <select id="typeFilter" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white">
                     <option value="">All Types</option>
                     <option value="Sent">Sent</option>
                     <option value="Received">Received</option>
@@ -158,7 +170,7 @@
                   </select>
                 </div>
                 <div class="md:col-span-2">
-                  <select id="appFilter" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <select id="appFilter" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white">
                     <option value="">All Apps</option>
                     <option value="GPay">GPay</option>
                     <option value="PhonePe">PhonePe</option>
@@ -166,7 +178,7 @@
                   </select>
                 </div>
                 <div class="md:col-span-2">
-                  <select id="sortBy" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <select id="sortBy" class="w-full rounded-lg border-gray-300 h-10 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white">
                     <option value="date_desc">Newest</option>
                     <option value="date_asc">Oldest</option>
                     <option value="amount_desc">Amount ↓</option>
@@ -201,7 +213,7 @@
     </div>
   </div>
 
-  <button id="fabAdd" class="md:hidden fixed bottom-6 right-6 z-40 rounded-full h-12 w-12 bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg grid place-items-center">+</button>
+  <button id="fabAdd" class="md:hidden fixed bottom-6 right-6 z-40 rounded-full h-12 w-12 bg-gradient-to-r from-brand-600 to-accent-600 text-white shadow-lg grid place-items-center">+</button>
 
   <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
   <script src="./js/app.js"></script>

@@ -1,26 +1,41 @@
 (function () {
-  const usersKey = 'utr_users';
   const sessionKey = 'utr_session';
+  const API_URL = '/api';
 
-  function readUsers() {
-    try {
-      return JSON.parse(localStorage.getItem(usersKey) || '[]');
-    } catch (e) {
-      return [];
+  // Helper function for making API requests
+  async function apiRequest(endpoint, method = 'GET', data = null) {
+    const options = {
+      method,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    if (data) {
+      options.body = JSON.stringify(data);
     }
+
+    const response = await fetch(`${API_URL}${endpoint}`, options);
+    let responseData = null;
+    try {
+      responseData = await response.json();
+    } catch (_) {
+      responseData = {};
+    }
+
+    if (!response.ok) {
+      if (responseData && responseData.errors) {
+        const errorMessages = Object.values(responseData.errors).join('\n');
+        throw new Error(errorMessages);
+      }
+      throw new Error((responseData && responseData.msg) || 'Something went wrong');
+    }
+
+    return responseData;
   }
 
-  function writeUsers(users) {
-    localStorage.setItem(usersKey, JSON.stringify(users));
-  }
-
-  function getUserByEmail(email) {
-    const users = readUsers();
-    return users.find(u => u.email.toLowerCase() === String(email).toLowerCase());
-  }
-
-  function createSession(email) {
-    localStorage.setItem(sessionKey, JSON.stringify({ email }));
+  function createSession(token, email) {
+    localStorage.setItem(sessionKey, JSON.stringify({ token, email }));
   }
 
   function getSession() {
@@ -89,6 +104,12 @@
       return;
     }
 
+    // If redirected from app due to session expiry, surface a notice
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('sessionExpired') === '1') {
+      showToast('Session expired. Please login again.', 'error');
+    }
+
     const loginTab = document.getElementById('tabLogin');
     const registerTab = document.getElementById('tabRegister');
     loginTab?.addEventListener('click', () => setTab('loginPanel'));
@@ -115,17 +136,33 @@
         return;
       }
 
-      const user = getUserByEmail(email);
-      if (!user || user.password !== password) {
-        topError.classList.remove('hidden');
-        showToast('Invalid email or password', 'error');
-        return;
+      topError.classList.add('hidden');
+
+      const submitBtn = loginForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
       }
 
-      topError.classList.add('hidden');
-      createSession(email);
-      showToast('Welcome back!', 'success');
-      setTimeout(redirectToApp, 400);
+      // Call the login API
+      apiRequest('/auth/login', 'POST', { email, password })
+        .then(data => {
+          createSession(data.token, email);
+          showToast('Welcome back!', 'success');
+          setTimeout(redirectToApp, 400);
+        })
+        .catch(err => {
+          topError.textContent = err.message;
+          topError.classList.remove('hidden');
+          showToast(err.message, 'error');
+        })
+        .finally(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
+        });
     });
 
     const registerForm = document.getElementById('registerPanel');
@@ -146,19 +183,33 @@
         return;
       }
 
-      if (getUserByEmail(email)) {
-        topError.classList.remove('hidden');
-        showToast('Email already registered', 'error');
-        return;
+      topError.classList.add('hidden');
+
+      const submitBtn = registerForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating...';
       }
 
-      topError.classList.add('hidden');
-      const users = readUsers();
-      users.push({ email, password });
-      writeUsers(users);
-      createSession(email);
-      showToast('Account created! Redirecting…', 'success');
-      setTimeout(redirectToApp, 400);
+      // Call the register API
+      apiRequest('/auth/register', 'POST', { email, password })
+        .then(data => {
+          createSession(data.token, email);
+          showToast('Account created! Redirecting…', 'success');
+          setTimeout(redirectToApp, 400);
+        })
+        .catch(err => {
+          topError.textContent = err.message;
+          topError.classList.remove('hidden');
+          showToast(err.message, 'error');
+        })
+        .finally(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
+        });
     });
   });
 })();

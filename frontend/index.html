@@ -12,9 +12,14 @@
           fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
           colors: {
             brand: {
-              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
-              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
-              800: '#3730a3', 900: '#312e81'
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e', 950: '#082f49'
+            },
+            accent: {
+              50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd',
+              400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9',
+              800: '#5b21b6', 900: '#4c1d95', 950: '#2e1065'
             }
           }
         }
@@ -25,22 +30,22 @@
   <meta name="color-scheme" content="light dark">
   <style>
     .bg-grid {
-      background-image: radial-gradient(rgba(99,102,241,0.12) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(14,165,233,0.12) 1px, transparent 1px);
       background-size: 18px 18px;
       background-position: -10px -10px;
     }
   </style>
 </head>
-<body class="min-h-screen font-sans text-gray-900 bg-gradient-to-br from-indigo-50 via-sky-50 to-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-950">
+<body class="min-h-screen font-sans bg-gradient-to-br from-brand-50 via-brand-100 to-white text-gray-900 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950">
   <div class="pointer-events-none fixed inset-0 bg-grid"></div>
   <main class="relative min-h-screen flex items-center justify-center p-4">
     <section class="w-full max-w-md">
       <div class="relative">
-        <div class="absolute -inset-px rounded-2xl bg-gradient-to-tr from-brand-400 via-indigo-500 to-sky-400 opacity-30 blur-xl"></div>
+        <div class="absolute -inset-px rounded-2xl bg-gradient-to-tr from-brand-400 via-brand-500 to-accent-400 opacity-30 blur-xl"></div>
         <div class="relative bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl rounded-2xl overflow-hidden">
           <div class="px-6 pt-6">
             <div class="flex items-center gap-2">
-              <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white grid place-items-center font-bold">U</div>
+              <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-brand-600 to-accent-600 text-white grid place-items-center text-xl font-bold">U</div>
               <div>
                 <h1 class="text-2xl font-semibold tracking-tight">UPI Transaction Tracker</h1>
                 <p class="mt-1 text-sm text-gray-500">Track your UPI spends and income in one place</p>
@@ -61,7 +66,7 @@
                 <label for="loginEmail" class="block text-sm font-medium mb-1">Email</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">&#128231;</span>
-                  <input id="loginEmail" type="email" autocomplete="email" required class="block w-full rounded-xl border-gray-300 pl-9 pr-3 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="you@example.com" />
+                  <input id="loginEmail" type="email" autocomplete="email" required class="block w-full rounded-xl border-gray-300 pl-9 pr-3 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white" placeholder="you@example.com" />
                 </div>
                 <p id="loginEmailError" class="mt-1 text-xs text-red-600 hidden">Please enter a valid email.</p>
               </div>
@@ -69,14 +74,14 @@
                 <label for="loginPassword" class="block text-sm font-medium mb-1">Password</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">&#128274;</span>
-                  <input id="loginPassword" type="password" autocomplete="current-password" minlength="6" required class="block w-full rounded-xl border-gray-300 pl-9 pr-10 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" />
-                  <button type="button" id="toggleLoginPwd" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 hover:text-gray-700 px-2 py-1">Show</button>
+                  <input id="loginPassword" type="password" autocomplete="current-password" minlength="6" required class="block w-full rounded-xl border-gray-300 pl-9 pr-10 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white" placeholder="••••••••" />
+                  <button type="button" id="toggleLoginPwd" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-medium text-brand-600 hover:text-brand-800 bg-white/80 rounded px-2 py-1">Show</button>
                 </div>
                 <p id="loginPasswordError" class="mt-1 text-xs text-red-600 hidden">Password must be at least 6 characters.</p>
               </div>
               <div id="loginError" class="text-sm text-red-600 hidden">Invalid email or password.</div>
-              <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium h-11 hover:from-indigo-700 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                <span>Sign in</span>
+              <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 text-white font-medium h-11 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                <span>Login</span>
               </button>
             </form>
 
@@ -85,7 +90,7 @@
                 <label for="registerEmail" class="block text-sm font-medium mb-1">Email</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">&#128231;</span>
-                  <input id="registerEmail" type="email" autocomplete="email" required class="block w-full rounded-xl border-gray-300 pl-9 pr-3 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="you@example.com" />
+                  <input id="registerEmail" type="email" autocomplete="email" required class="block w-full rounded-xl border-gray-300 pl-9 pr-3 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white" placeholder="you@example.com" />
                 </div>
                 <p id="registerEmailError" class="mt-1 text-xs text-red-600 hidden">Please enter a valid email.</p>
               </div>
@@ -93,14 +98,14 @@
                 <label for="registerPassword" class="block text-sm font-medium mb-1">Password</label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">&#128274;</span>
-                  <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required class="block w-full rounded-xl border-gray-300 pl-9 pr-10 h-11 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Create a password" />
-                  <button type="button" id="toggleRegisterPwd" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 hover:text-gray-700 px-2 py-1">Show</button>
+                  <input id="registerPassword" type="password" autocomplete="new-password" minlength="6" required class="block w-full rounded-xl border-gray-300 pl-9 pr-10 h-11 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-gray-900 bg-white" placeholder="Create a password" />
+                  <button type="button" id="toggleRegisterPwd" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-medium text-brand-600 hover:text-brand-800 bg-white/80 rounded px-2 py-1">Show</button>
                 </div>
                 <p id="registerPasswordError" class="mt-1 text-xs text-red-600 hidden">Password must be at least 6 characters.</p>
               </div>
               <div id="registerError" class="text-sm text-red-600 hidden">This email is already registered.</div>
-              <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium h-11 hover:from-indigo-700 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                <span>Create account</span>
+              <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 text-white font-medium h-11 hover:from-brand-700 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-brand-500 transition">
+                <span>Register</span>
               </button>
             </form>
           </div>
